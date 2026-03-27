@@ -367,7 +367,7 @@ footer p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05
     <div class="express-field">
       <p class="express-label">and I want to say</p>
       <textarea id="express-msg" placeholder="Write anything… no pressure, no rules. Just your heart." rows="5"></textarea>
-      <div class="char-count"><span id="char-count">0</span> / 1000 request mo</div>
+      <div class="char-count"><span id="char-count">0</span> / 50000 request mo</div>
     </div>
     <div>
       <p class="express-label">send it as</p>
@@ -736,7 +736,7 @@ function showMissVideo(){
   document.querySelectorAll('.mood-pill').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.mood-pill').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedMood=btn.dataset.mood;});});
   document.querySelectorAll('.tone-pill').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tone-pill').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedTone=btn.dataset.tone;});});
   const msgBox=document.getElementById('express-msg'),counter=document.getElementById('char-count');
-  msgBox.addEventListener('input',()=>{const l=Math.min(msgBox.value.length,1000);counter.textContent=l;if(msgBox.value.length>1000)msgBox.value=msgBox.value.slice(0,1000);});
+  msgBox.addEventListener('input',()=>{const l=Math.min(msgBox.value.length,50000);counter.textContent=l;if(msgBox.value.length>50000)msgBox.value=msgBox.value.slice(0,50000);});
   document.getElementById('send-tg-btn').addEventListener('click',async()=>{
     const msg=msgBox.value.trim(),status=document.getElementById('tg-status'),btn=document.getElementById('send-tg-btn'),label=document.getElementById('send-tg-label');
     if(!msg&&!selectedMood){status.textContent='write something first, love 🌸';status.className='tg-status err';return;}
