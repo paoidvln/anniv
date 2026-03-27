@@ -293,9 +293,13 @@ footer p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05
   <h2 class="section-title reveal reveal-delay-1" style="font-size:clamp(1.8rem,4vw,2.6rem);">Do you <em>miss me?</em></h2>
   <button class="miss-btn reveal reveal-delay-2" id="miss-btn" onclick="showMissVideo()">Click this when you miss me ♡</button>
   <div class="miss-video-wrap" id="miss-video-wrap">
-    <video id="miss-video" controls playsinline>
-      <source src="maniv.mp4" type="video/mp4">
-    </video>
+    <iframe
+  id="miss-video"
+  src="https://drive.google.com/file/d/1h3ZxLBpiN1IpKUqCyIPSL-KerAFylM5R/preview"
+  allow="autoplay"
+  allowfullscreen
+  style="width:100%;aspect-ratio:16/9;border:none;border-radius:14px;display:block;">
+</iframe>
     <div class="miss-video-placeholder" id="miss-placeholder" style="display:none;">
       <span style="font-size:2.2rem;">🎬</span>
     </div>
@@ -446,7 +450,7 @@ function showMissVideo(){
   const wrap=document.getElementById('miss-video-wrap'),vid=document.getElementById('miss-video'),btn=document.getElementById('miss-btn');
   if(wrap.classList.contains('show'))return;
   wrap.classList.add('show');btn.textContent='♡ I feel you missing me ♡';btn.style.background='linear-gradient(135deg,#c9a0a4,#e8b4b8)';
-  setTimeout(()=>{wrap.classList.add('fade-in');vid.addEventListener('error',()=>{vid.style.display='none';document.getElementById('miss-placeholder').style.display='flex';},{once:true});vid.play().catch(()=>{});},20);
+  setTimeout(()=>{wrap.classList.add('fade-in');},20);
   wrap.scrollIntoView({behavior:'smooth',block:'center'});
 }
 
