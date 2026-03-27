@@ -243,8 +243,8 @@ footer p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05
     </div>
     <div class="timeline reveal reveal-delay-3">
       <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><p class="timeline-date">The beginning</p><p class="timeline-text">The first message. Neither of us knew it was the start of something we'd still be talking about a year later.</p></div></div>
-      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><p class="timeline-date">First real conversations</p><p class="timeline-text">Late nights, different time zones, bad signal sometimes — yet we stayed. That persistence meant something.</p></div></div>
-      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><p class="timeline-date">Learning each other</p><p class="timeline-text">The fears, the soft spots, the small joys. I learned the shape of you through words and time zones.</p></div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><p class="timeline-date">First real conversations</p><p class="timeline-text">Late nights, bad signal sometimes — yet we stayed. That persistence meant something.</p></div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><p class="timeline-date">Learning each other</p><p class="timeline-text">The fears, the soft spots, the small joys. I learned the shape of you through words</p></div></div>
       <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><p class="timeline-date">One year in</p><p class="timeline-text">And here we are. Still here. Still trying. Still choosing each other despite everything.</p></div></div>
     </div>
   </div>
@@ -414,6 +414,7 @@ let musicPlaying=false,usingSynth=false,synthCtx=null,synthGain=null;
 document.getElementById('music-btn').addEventListener('click',()=>{
   const btn=document.getElementById('music-btn'),lbl=document.getElementById('music-label');
   if(!musicPlaying){
+    bgMusic.volume = 0.3;
     bgMusic.play().then(()=>{musicPlaying=true;usingSynth=false;btn.classList.add('playing');lbl.textContent='pause';}).catch(()=>{synthPlay();musicPlaying=true;usingSynth=true;btn.classList.add('playing');lbl.textContent='pause';});
   } else {
     if(usingSynth)synthStop();else bgMusic.pause();
@@ -421,7 +422,7 @@ document.getElementById('music-btn').addEventListener('click',()=>{
   }
 });
 function synthPlay(){
-  if(!synthCtx){synthCtx=new(window.AudioContext||window.webkitAudioContext)();synthGain=synthCtx.createGain();synthGain.gain.setValueAtTime(0,synthCtx.currentTime);const conv=synthCtx.createConvolver();const bLen=synthCtx.sampleRate*2;const buf=synthCtx.createBuffer(2,bLen,synthCtx.sampleRate);for(let c=0;c<2;c++){const d=buf.getChannelData(c);for(let i=0;i<bLen;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/bLen,3);}conv.buffer=buf;synthGain.connect(conv);conv.connect(synthCtx.destination);synthGain.connect(synthCtx.destination);[[207.65,0.08],[261.63,0.07],[311.13,0.06],[185.0,0.05],[369.99,0.04]].forEach(([freq,vol])=>{const osc=synthCtx.createOscillator(),g=synthCtx.createGain();const lfo=synthCtx.createOscillator(),lg=synthCtx.createGain();osc.type='sine';osc.frequency.value=freq;lfo.frequency.value=0.08+Math.random()*0.05;lg.gain.value=1.5;lfo.connect(lg);lg.connect(osc.frequency);g.gain.value=vol;osc.connect(g);g.connect(synthGain);osc.start();lfo.start();});}else if(synthCtx.state==='suspended'){synthCtx.resume();}synthGain.gain.linearRampToValueAtTime(0.18,synthCtx.currentTime+2);
+  if(!synthCtx){synthCtx=new(window.AudioContext||window.webkitAudioContext)();synthGain=synthCtx.createGain();synthGain.gain.setValueAtTime(0,synthCtx.currentTime);const conv=synthCtx.createConvolver();const bLen=synthCtx.sampleRate*2;const buf=synthCtx.createBuffer(2,bLen,synthCtx.sampleRate);for(let c=0;c<2;c++){const d=buf.getChannelData(c);for(let i=0;i<bLen;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/bLen,3);}conv.buffer=buf;synthGain.connect(conv);conv.connect(synthCtx.destination);synthGain.connect(synthCtx.destination);[[207.65,0.08],[261.63,0.07],[311.13,0.06],[185.0,0.05],[369.99,0.04]].forEach(([freq,vol])=>{const osc=synthCtx.createOscillator(),g=synthCtx.createGain();const lfo=synthCtx.createOscillator(),lg=synthCtx.createGain();osc.type='sine';osc.frequency.value=freq;lfo.frequency.value=0.08+Math.random()*0.05;lg.gain.value=1.5;lfo.connect(lg);lg.connect(osc.frequency);g.gain.value=vol;osc.connect(g);g.connect(synthGain);osc.start();lfo.start();});}else if(synthCtx.state==='suspended'){synthCtx.resume();}synthGain.gain.linearRampToValueAtTime(0.10,synthCtx.currentTime+2);
 }
 function synthStop(){if(!synthGain)return;synthGain.gain.linearRampToValueAtTime(0,synthCtx.currentTime+1.5);setTimeout(()=>{if(synthCtx)synthCtx.suspend();},1700);}
 
